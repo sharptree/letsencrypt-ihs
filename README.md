@@ -1,20 +1,43 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+This project provides scripts for both Windows and Linux to automate requesting, expanding and renewing Let's Encrypt issued certificates ([https://letsencrypt.org/](https://letsencrypt.org/)) and then import them to the CMS key store for the IBM HTTP Server.
 
-# Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
-1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
+The scripts depend on the CertBot program ([https://certbot.eff.org/](https://certbot.eff.org/)) for certificate issuing, renewal and expansion requests. Ensure that CertBot is installed on the target system before attempting to the the `letsencrypt-ihs` scripts.
 
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
+# Windows
+The Windows script is a PowerShell ([https://docs.microsoft.com/en-us/powershell/](https://docs.microsoft.com/en-us/powershell/)) script that must be run from within the PowerShell environment and cannot be run from the standard command terminal.
 
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
+## CertBot
+The latest release of CertBot for Windows can be found here: [https://dl.eff.org/certbot-beta-installer-win32.exe](https://dl.eff.org/certbot-beta-installer-win32.exe), additional details can be found here: [https://certbot.eff.org/instructions?ws=apache&os=windows](https://certbot.eff.org/instructions?ws=apache&os=windows).  Please download and install the application before running the `letsencrypt-ihs.ps1` script.  The script will use the registry entry created by the installation wizard to determine the installation location for CertBot.
 
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+## Command 
+| Parameter          | Description                                                                                                                                                      |
+|:-------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -CertBot           | The fully qualified path to the CertBot installation. If not provided it will be found in the Windows registry.                                                |
+| -CertHostNames     | A comma delimited list of host names for the certificate.  This is a required parameter.                                                                         |
+| -CurrentPassword   | If the current IBM HTTP Server key store password is different than the one provided, the `-CurrentPassword` parameter is required.                               |
+| -IHSPath           | The fully qualified path to the IBM HTTP Server installation. If not provided it will be found in the Windows registry, first for version 9.0.0.0, then 8.5.5.0. |
+| -IHSConfigPath     | The fully qualified path to the IBM HTTP Server configuration file.  Defaults to `-ISHPath\conf\httpd.conf`                                                      |
+| -Password          | Password that will be used for the IBM HTTP Server key store. If not provided then the user will interactively for a password.                                   |
+| -Help              | Flag that will print the scripts usage summary.                                                                                                                  |
+
+# Linux
+The Linux script is a Bash script that requires the following programs be installed before running:
+* certbot
+* openssl
+* wget
+* xmlstarlet
+
+The script will check for the availability of these programs and will not run without them.
+
+## Command
+| Parameter              | Description                                                                                                                                                                                  |
+|:-----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -c|--current-password  | If the current IBM HTTP Server key store password is different than the one provided, the `-c|--current-password` parameter is required.                                                     |
+| -d|--domains           | A comma delimited list of host names for the certificate.  This is a required parameter.                                                                                                     |
+| -i|--ihs-path          | The fully qualified path to the IBM HTTP Server installation. If not provided then it will be found in the Installation Manager registry at /var/ibm/InstallationManager/installRegistry.xml |
+|    --ihs-config-path   | The fully qualified path to the IBM HTTP Server configuration file.  Defaults to `--ihs-path\conf\httpd.conf`                                                                                |
+| -p|--password          | Password that will be used for the IBM HTTP Server key store. If not provided then the user will interactively for a password.                                                               |
+| -h|--help              | Flag that will print the scripts usage summary.                                                                                                                                              |
+
+# Contributing
+If you have suggestions or find defects please reach out to us at [hello@sharptree.io](mailto:hello@sharptree.io).
