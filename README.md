@@ -32,12 +32,12 @@ The script will check for the availability of these programs and will not run wi
 ## Command
 | Parameter              | Description                                                                                                                                                                                  |
 |:-----------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -c|--current-password  | If the current IBM HTTP Server key store password is different than the one provided, the `-c|--current-password` parameter is required.                                                     |
-| -d|--domains           | A comma delimited list of host names for the certificate.  This is a required parameter.                                                                                                     |
-| -i|--ihs-path          | The fully qualified path to the IBM HTTP Server installation. If not provided then it will be found in the Installation Manager registry at /var/ibm/InstallationManager/installRegistry.xml |
+| -c\|--current-password  | If the current IBM HTTP Server key store password is different than the one provided, the `-c\|--current-password` parameter is required.                                                     |
+| -d\|--domains           | A comma delimited list of host names for the certificate.  This is a required parameter.                                                                                                     |
+| -i\|--ihs-path          | The fully qualified path to the IBM HTTP Server installation. If not provided then it will be found in the Installation Manager registry at /var/ibm/InstallationManager/installRegistry.xml |
 |    --ihs-config-path   | The fully qualified path to the IBM HTTP Server configuration file.  Defaults to `--ihs-path\conf\httpd.conf`                                                                                |
-| -p|--password          | Password that will be used for the IBM HTTP Server key store. If not provided then the user will interactively for a password.                                                               |
-| -h|--help              | Flag that will print the scripts usage summary.                                                                                                                                              |
+| -p\|--password          | Password that will be used for the IBM HTTP Server key store. If not provided then the user will interactively for a password.                                                               |
+| -h\|--help              | Flag that will print the scripts usage summary.                                                                                                                                              |
 
 # Contributing
 If you have suggestions or find defects please reach out to us at [hello@sharptree.io](mailto:hello@sharptree.io).
