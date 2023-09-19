@@ -308,22 +308,22 @@ function createOrRenewCertificate(){
 
     fi
 
+
+
     if [[ found == 0 ]]; then
         # show an error
         echo "Error: The certificate was not found, renewed or issued."
         exit 1
     else
         # Create the p12 keystore
-        output=$(openssl pkcs12 -export -out ${TEMP_FOLDER}/${certName}.p12 -inkey ${privateKeyPath} -in ${certificatePath} -passout pass:${PASSWORD} -name ${certName} )
-
+        output=$(openssl pkcs12 -export -legacy -out ${TEMP_FOLDER}/${certName}.p12 -inkey ${privateKeyPath} -in ${certificatePath} -passout pass:${PASSWORD} -name ${certName} )
+     
         if [[ -z ${CURRENT_PASSWORD} ]]; then
             CURRENT_PASSWORD=${PASSWORD}
         fi
 
         gskCommand="$IHS_PATH/bin/gskcmd"
-        
         certificateLabels=$($gskCommand -cert -list -db ${TEMP_FOLDER}/${certName}.p12 -pw $PASSWORD -type pkcs12)
-        
         if [[ ! -f ${keyFilePath} ]]; then
             output=$($gskCommand -keydb -create -db ${keyFilePath} -pw ${PASSWORD})
             
